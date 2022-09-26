@@ -21,7 +21,7 @@ usage() {
     echo "$0 <set-name> <URL>"
 }
 
-if [ "$1" ] || [ -z "$2" ]; then
+if [ -z "$1" ] || [ -z "$2" ]; then
     usage
     exit 1
 fi
