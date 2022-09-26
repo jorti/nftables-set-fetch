@@ -40,26 +40,21 @@ using it to block DNS over HTTPS on the IoT network:
 
 ```
 # crontab -e
-****/10 * * * * /bin/nice -n 19 /usr/bin/nftables-set-fetch.sh resolvers https://public-dns.info/nameservers-all.txt
+*/10 * * * * /bin/nice -n 19 /usr/bin/nftables-set-fetch.sh resolvers https://public-dns.info/nameservers-all.txt
 ```
 
-- Update the sets at startup too by adding this to `/etc/rc.local`:
-
-```
-/usr/bin/nftables-set-fetch.sh resolvers https://public-dns.info/nameservers-all.txt
-```
-
-- Add custom nftables rules to `/etc/nftables.d/01-dns-resolvers.nft`
+- Add custom nftables rules to `/etc/nftables.d/01-dns-resolvers.nft`. Note that we have to define empty named sets
+here to be able to reference them in the rules.
 
 ```
 set resolvers4 {
     type ipv4_addr
-    comment "DNS resolvers IPv4"
+    comment "Set resolvers - IPv4"
 }
 
 set resolvers6 {
     type ipv6_addr
-    comment "DNS resolvers IPv6"
+    comment "Set resolvers - IPv6"
 }
 
 chain user_pre_forward {
