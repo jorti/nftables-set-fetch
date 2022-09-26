@@ -54,7 +54,7 @@ fi
 
 # Check if we need to fetch the IP list
 if ! find "$LIST_FILE" -mtime $STALE_DAYS >/dev/null 2>&1; then
-    log "IP list at '$LIST_FILE' is older than $STALE_DAYS days old, downloading..."
+    log "IP list at '$LIST_FILE' is older than $STALE_DAYS days old or non-existing, downloading..."
     UPDATE_LIST=1
     UPDATE_SETS=1
 else
